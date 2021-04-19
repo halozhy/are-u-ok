@@ -25,4 +25,4 @@ jobs:
           pip install -r requirements.txt
       - name: Run
         run: |
-          python ./main.py "${{ secrets.USER }}" "${{ secrets.PASS }}" "${{ secrets.IP }}" "${{ secrets.MAIL_HOST }}" "${{ secrets.MAIL_USER }}" "${{ secrets.MAIL_PASS }}" "${{ secrets.MAIL_RECEIVER }}"
+          python ./main.py "${{ secrets.USER }}" "${{ secrets.PASS }}" "${{ secrets.IP }}" "${{ secrets.MAIL_HOST }}" "${{ secrets.MAIL_USER }}" "${{ secrets.MAIL_PASS }}" "${{ secrets.MAIL_RECEIVER }}" "${{ secrets.DB_HOST }}" "${{ secrets.DB_USER }}" "${{ secrets.DB_PASS }}" "${{ secrets.DB_NAME }}"

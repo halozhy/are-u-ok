@@ -1,8 +1,9 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
-
+import datetime
 import smtplib
 import traceback
+import pymysql
 from email.mime.text import MIMEText
 from email.header import Header
 
@@ -10,6 +11,36 @@ from email.header import Header
 class Notifier:
     def send(self, subject: str, content: str):
         pass
+
+
+class DBNotifier(Notifier):
+    def __init__(self, mail_host: str, mail_username: str, mail_password: str, mail_receiver: str,
+                 db_host: str, db_username: str, db_password: str, db_name: str):
+        self._mail_host: str = mail_host
+        self._mail_user: str = mail_username
+        self._mail_pass: str = mail_password
+        self._mail_receiver: str = mail_receiver
+        self._db_host: str = db_host
+        self._db_user: str = db_username
+        self._db_pass: str = db_password
+        self._db_name: str = db_name
+
+    def send(self, subject: str, content: str):
+        try:
+            conn = pymysql.connect(host=self._db_host, user=self._db_user, password=self._db_pass,
+                                   database=self._db_name)
+            cursor = conn.cursor()
+            sql = "INSERT INTO ARE_YOU_OK_LOG (date, msg) VALUES (%s, %s)"
+            cursor.execute(sql, (datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"), f'{subject}:\n{content}'))
+            conn.commit()
+            conn.close()
+            print("save to db successfully")
+        except (pymysql.Error, RuntimeError) as e:
+            traceback.print_exc()
+            print("Fail to save to db, try sending mail...")
+            mail_notifier = MailNotifier(self._mail_host, self._mail_user, self._mail_pass, self._mail_receiver)
+            content = content + "\n注意：写入数据库存在异常，故改用邮件提醒"
+            mail_notifier.send(subject, content)
 
 
 class MailNotifier(Notifier):
