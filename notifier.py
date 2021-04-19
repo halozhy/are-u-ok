@@ -32,8 +32,8 @@ class DBNotifier(Notifier):
                                    database=self._db_name)
             cursor = conn.cursor()
             sql = "INSERT INTO ARE_YOU_OK_LOG (date, msg) VALUES (%s, %s)"
-            print(time.strftime('%z'))
-            cursor.execute(sql, (datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"), f'{subject}:\n{content}'))
+            now_time = datetime.datetime.now().astimezone(datetime.timezone(datetime.timedelta(hours=8)))
+            cursor.execute(sql, (now_time.strftime("%Y-%m-%d %H:%M:%S"), f'{subject}:\n{content}'))
             conn.commit()
             conn.close()
             print("save to db successfully")
