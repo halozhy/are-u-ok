@@ -2,6 +2,7 @@
 # -*- coding: UTF-8 -*-
 import datetime
 import smtplib
+import time
 import traceback
 import pymysql
 from email.mime.text import MIMEText
@@ -31,6 +32,7 @@ class DBNotifier(Notifier):
                                    database=self._db_name)
             cursor = conn.cursor()
             sql = "INSERT INTO ARE_YOU_OK_LOG (date, msg) VALUES (%s, %s)"
+            print(time.strftime('%z'))
             cursor.execute(sql, (datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"), f'{subject}:\n{content}'))
             conn.commit()
             conn.close()
