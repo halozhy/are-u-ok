@@ -119,6 +119,8 @@ class Job:
     def _login(self) -> (bool, str):
         try:
             resp: Response = self._client.get(self._init_url)
+            print(resp)
+            print(resp.text)
             lt: list = self._lt_matcher.findall(resp.text)
             lp: list = self._login_path_matcher.findall(resp.text)
             if len(lt) < 1 or len(lp) < 1:
