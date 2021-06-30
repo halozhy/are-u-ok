@@ -1,5 +1,27 @@
 # Are u ok
 > 东北大学学生防控信息统计系统自动化打卡脚本
+## 2021.6.30 halozhy更新：似乎校园网把国外IP禁掉了
+以下是6月30日一次 GitHub Action 的内容
+```shell
+Run python ./main.py "***" "***" "" "***" "***" "***" "***" "***" "***" "***" "***"
+running with saving to db
+<Response [403]>
+US
+send mail successfully
+save to db successfully
+```
+我打印了 `job.py` `login` 方法里面
+```python
+resp: Response = self._client.get(self._init_url)
+```
+`resp` 这个变量的以及 `resp.text` 的值，结果是
+```shell
+<Response [403]>
+US
+```
+之后我直接挂了日本的节点，浏览器访问 `pass.neu.edu.cn` ，结果是 404
+
+至此，个人认为是校园网ban掉了国外ip导致的脚本失效
 
 ## 目录
 
