@@ -4,7 +4,7 @@ import re
 import time
 from datetime import timedelta, timezone, datetime
 from random import randint
-from re import Pattern
+# from re import Pattern
 
 from requests import session, Response, Session
 
@@ -33,17 +33,17 @@ class Job:
 
     _feedback_url: str = "https://e-report.neu.edu.cn/notes"
 
-    _lt_matcher: Pattern = re.compile(r'name="lt" value="(.+?)"')
+    _lt_matcher = re.compile(r'name="lt" value="(.+?)"')
 
-    _login_path_matcher: Pattern = re.compile(r'id="loginForm" action="(.+?)"')
+    _login_path_matcher = re.compile(r'id="loginForm" action="(.+?)"')
 
-    _token_matcher: Pattern = re.compile(r'name="_token" value="(.+?)"')
+    _token_matcher = re.compile(r'name="_token" value="(.+?)"')
 
-    _name_matcher: Pattern = re.compile(r'当前用户：(.+?) <span')
+    _name_matcher = re.compile(r'当前用户：(.+?) <span')
 
-    _class_matcher: Pattern = re.compile(r'"suoshubanji":"(.+?)"')
+    _class_matcher = re.compile(r'"suoshubanji":"(.+?)"')
 
-    _date_matcher: Pattern = re.compile(r'"created_on":"(.+?)"')
+    _date_matcher = re.compile(r'"created_on":"(.+?)"')
 
     _wrong_auth: str = '账号或密码错误'
     _bad_info: str = '信息获取失败'

@@ -27,7 +27,7 @@ class DBNotifier(Notifier):
         self._db_name: str = db_name
 
     def send(self, subject: str, content: str):
-        # 这里写的不是很好，靠检查关键字 “失败” 来判断是否存在大咖或者上报体温失败
+        # 这里写的不是很好，靠检查关键字 “失败” 来判断是否存在打卡或者上报体温失败
         if subject.__contains__("失败"):
             mail_notifier = MailNotifier(self._mail_host, self._mail_user, self._mail_pass, self._mail_receiver)
             mail_notifier.send(subject, content)
